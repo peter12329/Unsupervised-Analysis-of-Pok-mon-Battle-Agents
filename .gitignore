@@ -1,0 +1,11 @@
+# Large datasets
+dataset/
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
