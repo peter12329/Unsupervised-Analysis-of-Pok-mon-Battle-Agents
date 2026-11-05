@@ -2,9 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from pathlib import Path
 
-df = pd.read_csv("final_battles.csv")
-
+ROOT = Path(__file__).resolve().parents[2]
+df = pd.read_csv(ROOT / "dataset" / "processed" / "final_battles.csv")
 X = df.drop(
     columns=[
         "episode_id",

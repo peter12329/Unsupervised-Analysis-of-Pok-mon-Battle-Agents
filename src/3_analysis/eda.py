@@ -1,6 +1,8 @@
 import pandas as pd
+from pathlib import Path
 
-df = pd.read_csv("battles.csv")
+ROOT = Path(__file__).resolve().parents[2]
+df = pd.read_csv(ROOT / "dataset" / "processed" / "battles.csv")
 
 print(df.head())
 
