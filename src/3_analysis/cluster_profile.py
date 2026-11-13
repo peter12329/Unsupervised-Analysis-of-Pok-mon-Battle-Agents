@@ -10,7 +10,10 @@ PROCESSED = ROOT / "dataset" / "processed"
 
 df = pd.read_csv(PROCESSED / "clustered_battles.csv")
 
-features = df.drop(columns=["episode_id", "winner_p1", "winner_p2", "cluster"])
+features = df.drop(columns=["episode_id", "winner_p1", "winner_p2", "cluster",
+                             "p1_deckCount", "p2_deckCount",
+                             "p1_prizes", "p2_prizes"])
+
 X_scaled = pd.DataFrame(
     RobustScaler().fit_transform(features), columns=features.columns
 )
@@ -32,7 +35,6 @@ ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)")
 ax.set_title("Battle Clusters (PCA 2D View)")
 ax.legend()
 plt.savefig(out_dir / "cluster_scatter.png", dpi=150, bbox_inches="tight")
-plt.show()
 
 # 2) Cluster profile heatmap (mean robust-scaled value per feature)
 profile = X_scaled.groupby("cluster").mean()
@@ -59,3 +61,6 @@ leak.columns = [f"p1_won={c}" for c in leak.columns]
 leak["n"] = sizes
 print(leak)
 plt.show()
+
+print(df['p1_won'].value_counts())
+print(len(df))

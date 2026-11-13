@@ -1,15 +1,17 @@
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import RobustScaler
+from pathlib import Path
 
 N_CLUSTERS = 6
 
 ROOT = Path(__file__).resolve().parents[2]
 PROCESSED = ROOT / "dataset" / "processed"
 
-df = pd.read_csv(PROCESSED / "final_battles.csv"
-                 )
-X = df.drop(columns=["episode_id", "winner_p1", "winner_p2"])
+df = pd.read_csv(PROCESSED / "final_battles.csv")
+X = df.drop(columns=["episode_id", "winner_p1", "winner_p2",
+                      "p1_deckCount", "p2_deckCount",
+                      "p1_prizes", "p2_prizes"])
 
 X_scaled = RobustScaler().fit_transform(X)
 
